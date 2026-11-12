@@ -2,8 +2,47 @@
 # Completa los pasos marcados con TODO. Ejecuta desde la raíz del repositorio:
 #   python scripts/comparacion_experimento.py
 
+
 # TODO 1: carga plantillas/registro_experimento.csv con pandas
+import pandas as pd 
+import numpy as np
+df = pd.read_csv("plantillas/registro_experimento.csv")
+
 # TODO 2: calcula e imprime el promedio de ventas_producto por ubicacion
+print("Promedio de ventas por ubicación:")
+print(df.groupby("ubicacion")["ventas_producto"].mean())
+
 # TODO 3: imprime el número de registros por grupo (value_counts)
+print("\nNúmero de registros por grupo:")
+print(df["ubicacion"].value_counts())
+
 # TODO 4: escribe 2–3 líneas de interpretación (sección 9 de la plantilla):
 #         por qué con 4 filas no se puede concluir y qué le faltaría al análisis
+
+# El grupo pasillo principal muestra un promedio mayor con 1335 USD que el habitual con 1040 USD,
+# pero con solo 4 filas  no se puede concluir nada ya que no hay una asignación
+# aleatoria real, no tenemos control de temporada y no hay una medida de variabilidad.
+# Para que el análisis sea justo faltarían: más unidades, asignación aleatoria
+# real, controlar promociones y una medida de variabilidad (desviación, intervalo
+# de confianza o prueba t) para saber si la diferencia es mayor que el ruido.
+
+# SECCIÓN 5 de la plantilla: asignación aleatoria 
+tiendas = ["Quito Norte", "Quito Sur", "Guayaquil Centro", "Guayaquil Norte", "Cuenca Centro",
+        "Cuenca Sur", "Ambato Centro", "Manta", "Loja", "Machala"]
+semanas = [1, 2, 3, 4]
+
+rng = np.random.default_rng(1234597)
+primera = rng.choice(["pasillo_principal", "habitual"], size=len(tiendas))
+
+filas = []
+for tienda, cond in zip(tiendas, primera):
+    otra = "habitual" if cond == "pasillo_principal" else "pasillo_principal"
+    for s in semanas:
+        filas.append({"tienda": tienda, "semana": s, "ubicacion": cond if s % 2 == 1 else otra})
+diseno = pd.DataFrame(filas)
+
+#Imprime la tabla de asignacion en conjunto con el pasillo_habitual y pasillo_principal con su respectivo conteo 
+diseno["u"] = diseno["ubicacion"].map({"pasillo_principal": "P", "habitual": "H"})
+print(diseno.pivot(index="tienda", columns="semana", values="u").loc[tiendas].to_string())
+print("\nConteo por grupo:\n", diseno["ubicacion"].value_counts())
+print("\nCondición inicial sorteada:\n", pd.Series(primera).value_counts())
