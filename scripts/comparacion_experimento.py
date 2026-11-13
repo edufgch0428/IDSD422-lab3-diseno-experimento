@@ -19,12 +19,14 @@ print(df["ubicacion"].value_counts())
 # TODO 4: escribe 2–3 líneas de interpretación (sección 9 de la plantilla):
 #         por qué con 4 filas no se puede concluir y qué le faltaría al análisis
 
-# El grupo pasillo principal muestra un promedio mayor con 1335 USD que el habitual con 1040 USD,
-# pero con solo 4 filas  no se puede concluir nada ya que no hay una asignación
-# aleatoria real, no tenemos control de temporada y no hay una medida de variabilidad.
-# Para que el análisis sea justo faltarían: más unidades, asignación aleatoria
-# real, controlar promociones y una medida de variabilidad (desviación, intervalo
-# de confianza o prueba t) para saber si la diferencia es mayor que el ruido.
+# El grupo pasillo_principal muestra un promedio mayor con 1335 USD que el habitual con 1040 USD,
+# pero no se puede concluir nada porque no hay una asignación real aleatoria, los datos son
+# muy pocos teniendo dos por grupo, en el cual no tenemos control de temporada, ni promociones en el grupo pasillo
+# y no hay medida de variabilidad.
+# Para que el análisis sea justo faltaría usar las 40 unidades con la asignación aleatoria
+# de la sección 5, controlar o excluir las semanas con promoción y calcular la variabilidad
+# de cada grupo. También haría falta una prueba estadística o un intervalo de confianza
+# para saber si la diferencia es mayor de lo que se esperaría solo por azar.
 
 # SECCIÓN 5 de la plantilla: asignación aleatoria 
 tiendas = ["Quito Norte", "Quito Sur", "Guayaquil Centro", "Guayaquil Norte", "Cuenca Centro",
