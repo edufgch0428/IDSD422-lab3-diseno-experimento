@@ -12,7 +12,7 @@ El producto en el pasillo principal vende mas en promedio que su ubicacion habit
 - **H1:** Las ventas semanales del producto en el pasillo principal son mayores que en la ubicación habitual.
 
 ## 2. Unidad experimental
-
+Se consideran 10 tiendas de RetailAndina S.A. observadas durante cuatro semanas, obteniendo un total de 40 observaciones tienda-semana. Cada tienda recibe ambas condiciones en diferentes semanas, por lo que las observaciones se encuentran relacionadas entre sí. Se eligieron 10 tiendas para comparar las ventas en diferentes establecimientos.
 Semana-Tienda (**# de tiendas * # de semanas**)
 
 - Unidad: Una tienda en una semana
@@ -34,7 +34,7 @@ Su rol es servir de punto de comparación, pues, sin el control no sabríamos si
 
 *¿Cómo se asignan las unidades a los grupos? ¿Por qué es necesaria?*
 
-Para cada una de las 10 tiendas se sortea al azar con qué ubicación empieza en la semana 1 ya sea con pasillo principal o habitual; después se alterna cada semana. Así cada tienda pasa 2 semanas en cada ubicación y las 40 tienda-semanas quedan en 20 y 20. Se sortea porque si nosotros eligiéramos qué tienda empieza en el pasillo, podríamos poner sin querer las tiendas más fuertes en un grupo. El azar reparte entre los grupos, en promedio, los factores que no conocemos ni medimos como lo son el tipo de cliente, temporada, clima, y por eso la diferencia que veamos se puede atribuir a la ubicación. Como cada tienda se compara consigo misma, también se controla su tamaño.
+Para cada una de las 10 tiendas se sortea al azar con qué ubicación empieza en la semana 1 ya sea con pasillo principal o habitual; después se alterna cada semana. Así cada tienda pasa 2 semanas en cada ubicación y las 40 tienda-semanas quedan en 20 y 20. Se sortea porque si nosotros eligiéramos qué tienda empieza en el pasillo, podríamos poner sin querer las tiendas más fuertes en un grupo. El azar ayuda a repartir entre los grupos algunos factores que no conocemos ni medimos, como el tipo de cliente, la temporada y el clima. De esta manera, se reducen posibles sesgos y se facilita la comparación de las ventas entre ambas ubicaciones.
 
 - **Línea de código de la asignación (Python):** el código completo se encuentra en `scripts/comparacion_experimento.py`, en la parte de la sección 5
 
@@ -82,6 +82,7 @@ Conteo por grupo: habitual = 20, pasillo_principal = 20. Condición inicial sort
 
 - Pérdida de potencia por promociones: una promoción simultánea puede subir las ventas y confundirse con el efecto de la ubicación.
 - Canibalización de las tiendas: poner el producto en el pasillo podría quitar ventas a otros productos. Solo medimos el producto estrella, así que no podemos concluir si la ganancia total de la tienda sube.
+- La alternancia semanal podría afectar los resultados porque las ventas pueden aumentar o disminuir dependiendo de la semana, pues, mover el producto constantemente podría influir en el comportamiento de los clientes. Por ende, estos factores se deben considerar al implementar las diferencias de ventas. 
 
 ## 9. Comparación en código (Python/R)
 
@@ -113,6 +114,21 @@ No se puede concluir porque no hay una asignación real aleatoria, los datos son
 
 - Si el experimento se ejecutara con tu protocolo, ¿qué le faltaría a este análisis para ser justo?
 
-Le faltaría usar las 40 unidades con la asignación aleatoria de la sección 5, controlar o excluir las semanas con promoción y calcular la variabilidad de cada grupo. También haría falta una prueba estadística o un intervalo de confianza para la diferencia de promedios, y así saber si la diferencia observada es mayor de lo que se esperaría solo por azar.
+Le faltaría usar las 40 unidades con la asignación aleatoria de la sección 5, registrar y considerar las semanas con promociones y calcular la variabilidad de cada grupo. También haría falta una prueba estadística o un intervalo de confianza para la diferencia de promedios, y así saber si la diferencia observada es mayor de lo que se esperaría solo por azar.
 
 
+## 10. Diseño adaptado a un ensayo clínico (vacuna del cap. 1)
+
+Para la adaptación del experimento de RetailAndina S.A. hacia un ensayo clínico, se requiere estudiar si una vacuna permite disminuir la cantidad de personas que contraen una enfermedad en comparación al grupo de control. 
+
+- Hipótesis: Las personas que reciben una vacuna son menos propensos a contagiarse de la enfermedad que las personas de grupo de control. 
+- Unidad experimental: Los participantes del ensayo clínico. 
+- Factor: Tipo de intervención que recibe cada participante. 
+- Niveles: Vacuna y placebo siempre y cuando sea de manera ética. 
+- Tratamiento: Aplicar la vacuna a los participantes. 
+- Grupo de control: Participantes que reciben un un placebo para comparar los resultados con el grupo que recibió la vacuna.
+- Aleatorización: Se asigna al azar a los participantes entre ambos grupos. 
+- Variable respuesta: Cantidad de participantes que contraen la enfermedad durante el período de seguimiento, para comparar la proporción de contagios entre los grupos. 
+- Factores a controlar: Estado de salud, edad, enfermedades previas y exposición del contagio; siendo factores que pueden afectar a los resultados. 
+- Ciego/doble ciego: los participantes y el personal encargado de evaluar los resultados no conocen qué intervención recibió cada persona. 
+- Limitaciones: Los resultados pueden verse afectados por diferencias en la exposición a la enfermedad pérdidas de seguimiento o problemas en el registro de los contagios. Además, no se puede asegurar que los resultados representen a toda la población.
