@@ -2,9 +2,19 @@
 # Completa los pasos marcados con TODO. Ejecuta desde la raíz del repositorio:
 #   Rscript scripts/comparacion_experimento.R
 
-# TODO 1: carga plantillas/registro_experimento.csv (read.csv)
-# TODO 2: calcula e imprime el promedio de ventas_producto por ubicacion
-#         (aggregate)
-# TODO 3: imprime el número de registros por grupo (table)
-# TODO 4: escribe 2–3 líneas de interpretación (sección 9 de la plantilla):
-#         por qué con 4 filas no se puede concluir y qué le faltaría al análisis
+# TODO 1: Cargar el archivo CSV
+datos <- read.csv("plantillas/registro_experimento.csv")
+
+# TODO 2: Calcular el promedio por ubicación
+cat("Promedio de ventas por ubicación:\n")
+promedios <- aggregate(ventas_producto ~ ubicacion, data = datos, FUN = mean)
+print(promedios)
+
+# TODO 3: Contar los registros por grupo
+cat("\nNúmero de registros por grupo:\n")
+print(table(datos$ubicacion))
+
+# TODO 4: Interpretación de resultados
+# El pasillo principal presenta mayores ventas promedio,
+# pero los cuatro registros no permiten comprobar que
+# la ubicación sea la causa de esta diferencia.    por qué con 4 filas no se puede concluir y qué le faltaría al análisis
